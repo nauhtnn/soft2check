@@ -20,9 +20,39 @@ namespace WpfApp2
     /// </summary>
     public partial class MainWindow : Window
     {
+        System.Threading.Thread mTh;
+        Server2 mServer;
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        public bool ServerReceiveMessge(byte[] msg, out byte[] outMsg)
+        {
+            Dispatcher.Invoke(new Action(
+                        () =>
+                        {
+                            txtMsgFromClient.Text += System.Text.UTF8Encoding.UTF8.GetString(msg) + "\n";
+                        }));
+            outMsg = null;
+            return false;
+        }
+
+        private void Grid_Loaded(object sender, RoutedEventArgs e)
+        {
+            mTh = new System.Threading.Thread(ServerStartListening);
+            mTh.Start();
+        }
+
+        private void ServerStartListening()
+        {
+            mServer = new Server2(ServerReceiveMessge);
+            mServer.Start();
+        }
+
+        private void Grid_Unloaded(object sender, RoutedEventArgs e)
+        {
+            mTh.Abort();
         }
     }
 }

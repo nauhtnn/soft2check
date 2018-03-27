@@ -20,6 +20,8 @@ namespace Client99
     /// </summary>
     public partial class MainWindow : Window
     {
+        Client2 mClient;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -27,7 +29,21 @@ namespace Client99
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            byte[] msg = ClientMsg();
+            mClient = new Client2(ClientBufHndl, ClientMsg, false);
+            mClient.ConnectWR();
+        }
 
+        public byte[] ClientMsg()
+        {
+            return System.Text.UTF8Encoding.UTF8.GetBytes("_" + tbxMsg.Text + "_");
+        }
+
+        public bool ClientBufHndl(byte[] buf)
+        {
+            mClient.Close();
+            mClient = null;
+            return false;
         }
     }
 }
