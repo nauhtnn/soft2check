@@ -8,8 +8,10 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <TextBlock HorizontalAlignment="Left" Height="39" Margin="82,34,0,0" TextWrapping="Wrap" Text="This client is to send message to the server" VerticalAlignment="Top" Width="527" FontSize="24"/>
-        <TextBox x:Name="tbxMsg" HorizontalAlignment="Left" Height="186" Margin="82,122,0,0" TextWrapping="Wrap" Text="Client's message" VerticalAlignment="Top" Width="323"/>
+        <TextBox x:Name="tbxMsg" Text="Chưa kiểm tra."  HorizontalAlignment="Left" Height="186" Margin="82,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="323"/>
         <TextBlock HorizontalAlignment="Left" Height="26" Margin="82,91,0,0" TextWrapping="Wrap" Text="Message" VerticalAlignment="Top" Width="121"/>
-        <Button Content="Send" Click="Button_Click" HorizontalAlignment="Left" Height="31" Margin="246,86,0,0" VerticalAlignment="Top" Width="83"/>
+        <Button x:Name="btnSend" Click="btnSend_Click" Content="Gửi server" HorizontalAlignment="Left" Height="31" Margin="246,86,0,0" VerticalAlignment="Top" Width="83"/>
+        <Button x:Name="btnPhung" Click="btnPhung_Click" Content="(Phụng) Kiểm tra files, Unikey, ..." HorizontalAlignment="Left" Height="39" Margin="476,78,0,0" VerticalAlignment="Top" Width="201"/>
+        <Button x:Name="btnMy" Click="btnMy_Click" Content="(My) Kiểm tra MS Office..." HorizontalAlignment="Left" Height="36" Margin="476,149,0,0" VerticalAlignment="Top" Width="201"/>
     </Grid>
 </Window>

@@ -27,7 +27,7 @@ namespace Client99
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void btnSend_Click(object sender, RoutedEventArgs e)
         {
             byte[] msg = ClientMsg();
             mClient = new Client2(ClientBufHndl, ClientMsg, false);
@@ -36,7 +36,9 @@ namespace Client99
 
         public byte[] ClientMsg()
         {
-            return System.Text.UTF8Encoding.UTF8.GetBytes("_" + tbxMsg.Text + "_");
+            string msg = "_" + tbxMsg.Text + "_";
+            tbxMsg.Text = "";
+            return System.Text.UTF8Encoding.UTF8.GetBytes(msg);
         }
 
         public bool ClientBufHndl(byte[] buf)
@@ -44,6 +46,16 @@ namespace Client99
             mClient.Close();
             mClient = null;
             return false;
+        }
+
+        private void btnPhung_Click(object sender, RoutedEventArgs e)
+        {
+            tbxMsg.Text = PhungTest.TestAndReport();
+        }
+
+        private void btnMy_Click(object sender, RoutedEventArgs e)
+        {
+            tbxMsg.Text = MyTest.TestAndReport();
         }
     }
 }

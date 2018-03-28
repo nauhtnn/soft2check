@@ -73,6 +73,7 @@ namespace Client99
             try {
                 mTcpClnt.Connect(mSrvrAddr, mSrvrPort);
             } catch (SocketException e) {
+                e.ToString();
                 //if (ErrCode2Msg(e.ErrorCode, ref cbMsg))
                 //    cbMsg += "\nEx: " + e.Message;
                 bConn = false;
@@ -95,6 +96,7 @@ namespace Client99
                     stream.Write(msg, 0, msg.Length);
                 }
                 catch (System.IO.IOException e) {
+                    e.ToString();
                     //cbMsg += "\nEx: " + e.Message;
                     bConn = false;
                     break;
@@ -114,6 +116,7 @@ namespace Client99
                 {
                     nByte = stream.Read(buf, 0, buf.Length);
                 } catch (System.IO.IOException e) {
+                    e.ToString();
                     //cbMsg += "\nEx: " + e.Message;
                     bConn = false;
                     break;
@@ -151,6 +154,7 @@ namespace Client99
                     }
                     catch (System.IO.IOException e)
                     {
+                        e.ToString();
                         //cbMsg += "\nEx: " + e.Message;
                         bConn = false;
                     }
