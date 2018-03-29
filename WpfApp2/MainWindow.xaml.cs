@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -21,10 +22,26 @@ namespace WpfApp2
     public partial class MainWindow : Window
     {
         System.Threading.Thread mTh;
+        System.Timers.Timer mTimer;
         Server2 mServer;
+        bool toUpdateGUI;
+        int mCount;
+
         public MainWindow()
         {
             InitializeComponent();
+            mCount = 0;
+            Closing += MainWindow_Closing;
+            toUpdateGUI = true;
+        }
+
+        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            toUpdateGUI = false;
+            mServer.Stop();
+            mTh.Join();
+            mTimer.Close();
+            mTimer.Dispose();
         }
 
         public bool ServerReceiveMessge(byte[] msg, out byte[] outMsg)
@@ -32,7 +49,8 @@ namespace WpfApp2
             Dispatcher.Invoke(new Action(
                         () =>
                         {
-                            txtMsgFromClient.Text += System.Text.UTF8Encoding.UTF8.GetString(msg) + "\n";
+                            if(toUpdateGUI)
+                                txtMsgFromClient.Text += System.Text.UTF8Encoding.UTF8.GetString(msg) + "\n";
                         }));
             outMsg = null;
             return false;
@@ -42,6 +60,12 @@ namespace WpfApp2
         {
             mTh = new System.Threading.Thread(ServerStartListening);
             mTh.Start();
+            // Create a timer with a two second interval.
+            mTimer = new System.Timers.Timer(1000);
+            // Hook up the Elapsed event for the timer. 
+            mTimer.Elapsed += OnTimedEvent;
+            mTimer.AutoReset = true;
+            mTimer.Enabled = true;
         }
 
         private void ServerStartListening()
@@ -50,9 +74,15 @@ namespace WpfApp2
             mServer.Start();
         }
 
-        private void Grid_Unloaded(object sender, RoutedEventArgs e)
+        private void OnTimedEvent(object sender, ElapsedEventArgs e)
         {
-            mTh.Abort();
+            ++mCount;
+            Dispatcher.Invoke(new Action(
+                        () =>
+                        {
+                            if(toUpdateGUI)
+                                txtCount.Text = mCount.ToString();
+                        }));
         }
     }
 }

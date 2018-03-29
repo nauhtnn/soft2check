@@ -6,8 +6,12 @@
         xmlns:local="clr-namespace:WpfApp2"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid Loaded="Grid_Loaded" Unloaded="Grid_Unloaded">
+    <Grid Loaded="Grid_Loaded">
         <TextBlock HorizontalAlignment="Left" Height="39" Margin="82,34,0,0" TextWrapping="Wrap" Text="Server has received the message from client:" VerticalAlignment="Top" Width="527" FontSize="24"/>
-        <TextBlock x:Name="txtMsgFromClient" HorizontalAlignment="Left" Height="238" Margin="100,99,0,0" TextWrapping="Wrap" Text="Listening..." VerticalAlignment="Top" Width="535"/>
+        <ScrollViewer HorizontalAlignment="Left" Height="238" Margin="82,128,0,0" VerticalAlignment="Top" Width="535">
+            <TextBlock x:Name="txtMsgFromClient" TextWrapping="Wrap" Text="Đang lắng nghe..." />
+        </ScrollViewer>
+        <TextBlock Text="Server đang đếm thời gian" HorizontalAlignment="Left" Height="36" Margin="80,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="213" FontSize="16"/>
+        <TextBlock x:Name="txtCount" Text="0"  HorizontalAlignment="Left" Height="38" Margin="322,75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="135" FontSize="16"/>
     </Grid>
 </Window>
