@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+
 namespace Client99
 {
     class PhungTest
@@ -14,18 +15,15 @@ namespace Client99
         public static string TestAndReport()
         {
             string report = "Chưa kiểm tra File.";
-            DirectoryInfo dirStanford = new DirectoryInfo("D:\\Stanford");
-            DirectoryInfo[] dirSub = dirStanford.GetDirectories();
-            foreach (DirectoryInfo folder in dirSub)
-            {
-                report = "Cac file ton tai:";
-                
-            }
-
+            if (System.IO.File.Exists("C:/Program Files/UniKey42/UniKeyNT.exe"))
+                report += "Tim thay";
+            else
+                report += "Khong tim thay!";
+         
             return report;
         }
         
-
+       
 
     }
 
