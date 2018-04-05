@@ -18,6 +18,8 @@ namespace Client99
     {
         public MyTest() { }
 
+        static string excel_file = "d:\\TTKMy_excel_test";
+
         public class Account
         {
             public int ID { get; set; }
@@ -37,24 +39,28 @@ namespace Client99
             // kiem tra office 
             string filePath = @"C:/Program Files/Microsoft Office/Office14/EXCEL.exe";
             if (System.IO.File.Exists(filePath))
-               report +="Tồn tại  \"Excel.exe\".";
+               report +="\nTồn tại  \"Excel.exe\".";
             else
-               report+="Không tồn tại \"Excel.exe\".";
+               report+="\nKhông tồn tại \"Excel.exe\".";
 
             string filePath2 = @"C:/Program Files/Microsoft Office/Office14/POWERPNT.exe";
             if (System.IO.File.Exists(filePath2))
-                report += "Tồn tại  \"POWERPOINT.exe\".";
+                report += "\nTồn tại  \"POWERPOINT.exe\".";
             else
-                report += "Không tồn tại \"POWERPOINT.exe\".";
+                report += "\nKhông tồn tại \"POWERPOINT.exe\".";
 
             string filePath3 = @"C:/Program Files/Microsoft Office/Office14/WINWORD.exe";
             if (System.IO.File.Exists(filePath3))
-                report += "Tồn tại  \"WINWORD.exe\".";
+                report += "\nTồn tại  \"WINWORD.exe\".";
             else
-                report += "Không tồn tại \"WINWORD.exe\".";
+                report += "\nKhông tồn tại \"WINWORD.exe\".";
 
 
-           // goi excel
+            // goi excel
+
+            if (System.IO.File.Exists(excel_file))//xoa file kiem tra cu
+                System.IO.File.Delete(excel_file);
+
              var bankAccounts = new List<Account>
              {
                  new Account
@@ -72,7 +78,7 @@ namespace Client99
 
              var excelApp = new Excel.Application();
                  excelApp.Visible = true;
-                 excelApp.Workbooks.Add();
+            Microsoft.Office.Interop.Excel.Workbook wbook = excelApp.Workbooks.Add();
                  Excel._Worksheet workSheet = (Excel.Worksheet)excelApp.ActiveSheet;
 
                  workSheet.Cells[1, "A"] = "MASV";
@@ -89,14 +95,16 @@ namespace Client99
                  ((Excel.Range)workSheet.Columns[1]).AutoFit();
                  ((Excel.Range)workSheet.Columns[2]).AutoFit();
 
-            excelApp.Visible = false;
-            Excel.Workbook workbook = excelApp.Workbooks.Add(1);
-            Excel.Worksheet worksheet = (Excel.Worksheet)workbook.Sheets[1];
-            
-            workbook.SaveAs(@"D:/kiemtra.xlsx", Excel.XlFileFormat.xlWorkbookDefault);
+            //excelApp.Visible = false;
+            //Directory.SetCurrentDirectory("d:/");
+            //wbook.SaveAs("kiemtra.xlsx", Excel.XlFileFormat.xlWorkbookDefault);
+            wbook.SaveAs(excel_file, Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookDefault, Type.Missing, Type.Missing,
+            false, false, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlNoChange,
+            Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+            wbook.Close();
             excelApp.Workbooks.Close();
             excelApp.Quit();
-
+            report += "\nĐÃ KIỂM TRA EXCEL";
 
             ////////////////end test
             return report;
