@@ -9,11 +9,24 @@ using System.Runtime.InteropServices;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using Word = Microsoft.Office.Interop.Word;
+using Powerpoint = Microsoft.Office.Interop.PowerPoint;
+using Excel = Microsoft.Office.Interop.Excel;
 namespace Client99
 {
     class MyTest
     {
         public MyTest() { }
+
+        public class Account
+        {
+            public int ID { get; set; }
+            public double Balance
+            {
+                get; set;
+            }
+        }
+
 
         public static string TestAndReport()
         {
@@ -21,6 +34,7 @@ namespace Client99
             ////////////////start test
 
             //test here
+            // kiem tra office 
             string filePath = @"C:/Program Files/Microsoft Office/Office14/EXCEL.exe";
             if (System.IO.File.Exists(filePath))
                report +="Tồn tại  \"Excel.exe\".";
@@ -38,6 +52,52 @@ namespace Client99
                 report += "Tồn tại  \"WINWORD.exe\".";
             else
                 report += "Không tồn tại \"WINWORD.exe\".";
+
+
+           // goi excel
+             var bankAccounts = new List<Account>
+             {
+                 new Account
+                         {
+                         ID = 01,
+                         Balance = 8
+                         },
+                 new Account
+                         {
+                         ID = 02,
+                         Balance = 5
+
+                         }
+              };
+
+             var excelApp = new Excel.Application();
+                 excelApp.Visible = true;
+                 excelApp.Workbooks.Add();
+                 Excel._Worksheet workSheet = (Excel.Worksheet)excelApp.ActiveSheet;
+
+                 workSheet.Cells[1, "A"] = "MASV";
+                 workSheet.Cells[1, "B"] = "DiemThi";
+             var row = 1;
+             foreach (var acct in  bankAccounts )
+             {
+                 row++;
+                 workSheet.Cells[row, "A"] = acct.ID;
+                 workSheet.Cells[row, "B"] = acct.Balance;
+             }
+                 workSheet.Columns[1].AutoFit();
+                 workSheet.Columns[2].AutoFit();
+                 ((Excel.Range)workSheet.Columns[1]).AutoFit();
+                 ((Excel.Range)workSheet.Columns[2]).AutoFit();
+
+            excelApp.Visible = false;
+            Excel.Workbook workbook = excelApp.Workbooks.Add(1);
+            Excel.Worksheet worksheet = (Excel.Worksheet)workbook.Sheets[1];
+            
+            workbook.SaveAs(@"D:/kiemtra.xlsx", Excel.XlFileFormat.xlWorkbookDefault);
+            excelApp.Workbooks.Close();
+            excelApp.Quit();
+
+
             ////////////////end test
             return report;
         }
