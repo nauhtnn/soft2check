@@ -1,0 +1,9 @@
+D:\users\repos\soft2check\WSSkiemtra\bin\Debug\WSSkiemtra.exe.config
+D:\users\repos\soft2check\WSSkiemtra\bin\Debug\WSSkiemtra.exe
+D:\users\repos\soft2check\WSSkiemtra\bin\Debug\WSSkiemtra.pdb
+D:\users\repos\soft2check\WSSkiemtra\obj\Debug\WSSkiemtra.csprojResolveAssemblyReference.cache
+D:\users\repos\soft2check\WSSkiemtra\obj\Debug\WSSkiemtra.ProjectInstaller.resources
+D:\users\repos\soft2check\WSSkiemtra\obj\Debug\WSSkiemtra.csproj.GenerateResource.cache
+D:\users\repos\soft2check\WSSkiemtra\obj\Debug\WSSkiemtra.csproj.CoreCompileInputs.cache
+D:\users\repos\soft2check\WSSkiemtra\obj\Debug\WSSkiemtra.exe
+D:\users\repos\soft2check\WSSkiemtra\obj\Debug\WSSkiemtra.pdb
