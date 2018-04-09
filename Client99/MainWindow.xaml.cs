@@ -68,7 +68,7 @@ namespace Client99
 
         private void btnMy_Click(object sender, RoutedEventArgs e)
         {
-            tbxMsg.Text = MyTest.TestAndReport();
+           tbxMsg.Text = MyTest.TestAndReport();
         }
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)

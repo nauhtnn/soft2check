@@ -107,8 +107,6 @@ namespace Client99
                excelApp.Workbooks.Close();
                excelApp.Quit();
                report += "\nĐÃ KIỂM TRA EXCEL";*/
-
-
             // kiem tra word.
 
             //object omissing = system.reflection.missing.value;
