@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using Word = Microsoft.Office.Interop.Word;
+/*using Word = Microsoft.Office.Interop.Word;
 using Powerpoint = Microsoft.Office.Interop.PowerPoint;
 using Excel = Microsoft.Office.Interop.Excel;
 namespace Client99
@@ -110,4 +110,4 @@ namespace Client99
             return report;
         }
     }
-}
+}*/
