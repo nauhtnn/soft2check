@@ -58,54 +58,68 @@ namespace Client99
 
             // goi excel
 
-            if (System.IO.File.Exists(excel_file))//xoa file kiem tra cu
-                System.IO.File.Delete(excel_file);
+            /*  if (System.IO.File.Exists(excel_file))//xoa file kiem tra cu
+                  System.IO.File.Delete(excel_file);
 
-             var bankAccounts = new List<Account>
-             {
-                 new Account
-                         {
-                         ID = 01,
-                         Balance = 8
-                         },
-                 new Account
-                         {
-                         ID = 02,
-                         Balance = 5
+               var bankAccounts = new List<Account>
+               {
+                   new Account
+                           {
+                           ID = 01,
+                           Balance = 8
+                           },
+                   new Account
+                           {
+                           ID = 02,
+                           Balance = 5
 
-                         }
-              };
+                           }
+                };
 
-             var excelApp = new Excel.Application();
-                 excelApp.Visible = true;
-            Microsoft.Office.Interop.Excel.Workbook wbook = excelApp.Workbooks.Add();
-                 Excel._Worksheet workSheet = (Excel.Worksheet)excelApp.ActiveSheet;
+               var excelApp = new Excel.Application();
+                   excelApp.Visible = true;
+              Microsoft.Office.Interop.Excel.Workbook wbook = excelApp.Workbooks.Add();
+                   Excel._Worksheet workSheet = (Excel.Worksheet)excelApp.ActiveSheet;
 
-                 workSheet.Cells[1, "A"] = "MASV";
-                 workSheet.Cells[1, "B"] = "DiemThi";
-             var row = 1;
-             foreach (var acct in  bankAccounts )
-             {
-                 row++;
-                 workSheet.Cells[row, "A"] = acct.ID;
-                 workSheet.Cells[row, "B"] = acct.Balance;
-             }
-                 workSheet.Columns[1].AutoFit();
-                 workSheet.Columns[2].AutoFit();
-                 ((Excel.Range)workSheet.Columns[1]).AutoFit();
-                 ((Excel.Range)workSheet.Columns[2]).AutoFit();
+                   workSheet.Cells[1, "A"] = "MASV";
+                   workSheet.Cells[1, "B"] = "DiemThi";
+               var row = 1;
+               foreach (var acct in  bankAccounts )
+               {
+                   row++;
+                   workSheet.Cells[row, "A"] = acct.ID;
+                   workSheet.Cells[row, "B"] = acct.Balance;
+               }
+                   workSheet.Columns[1].AutoFit();
+                   workSheet.Columns[2].AutoFit();
+                   ((Excel.Range)workSheet.Columns[1]).AutoFit();
+                   ((Excel.Range)workSheet.Columns[2]).AutoFit();
 
-            //excelApp.Visible = false;
-            //Directory.SetCurrentDirectory("d:/");
-            //wbook.SaveAs("kiemtra.xlsx", Excel.XlFileFormat.xlWorkbookDefault);
-            wbook.SaveAs(excel_file, Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookDefault, Type.Missing, Type.Missing,
-            false, false, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlNoChange,
-            Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
-            wbook.Close();
-            excelApp.Workbooks.Close();
-            excelApp.Quit();
-            report += "\nĐÃ KIỂM TRA EXCEL";
+              //excelApp.Visible = false;
+              //Directory.SetCurrentDirectory("d:/");
+              //wbook.SaveAs("kiemtra.xlsx", Excel.XlFileFormat.xlWorkbookDefault);
+              wbook.SaveAs(excel_file, Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookDefault, Type.Missing, Type.Missing,
+              false, false, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlNoChange,
+              Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+              wbook.Close();
+              excelApp.Workbooks.Close();
+              excelApp.Quit();
+              report += "\nĐÃ KIỂM TRA EXCEL";*/
+            
+            
+            // kiem tra word.
 
+            object oMissing = System.Reflection.Missing.Value;
+            object oEndOfDoc = "\\endofdoc";
+
+            //Start Word and create a new document.
+
+            Word.Application oWord;
+            Word.Document oDoc;
+            oWord = new Word.Application();
+            oWord.Visible = true;
+            oDoc = oWord.Documents.Add(ref oMissing, ref oMissing, ref oMissing, ref oMissing);
+       
             ////////////////end test
             return report;
         }
