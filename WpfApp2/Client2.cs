@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Sockets;
 
-namespace Client99
+namespace WpfApp2
 {
     public enum NetCode
     {
@@ -43,6 +43,20 @@ namespace Client99
                 mSrvrPort = Convert.ToInt32(System.IO.File.ReadAllText(filePath));
             else
                 mSrvrPort = 33333;
+            dgBufHndl = hndl;
+            dgBufPrep = prep;
+            bRW = false;
+            bCbMsg = allMsg;
+        }
+
+        public Client2(string addr, DgClntBufHndl hndl, DgClntBufPrep prep, bool allMsg)
+        {
+            mSrvrAddr = addr;
+            string filePath = "ClientPort.txt";
+            if (System.IO.File.Exists(filePath))
+                mSrvrPort = Convert.ToInt32(System.IO.File.ReadAllText(filePath));
+            else
+                mSrvrPort = 33334;
             dgBufHndl = hndl;
             dgBufPrep = prep;
             bRW = false;

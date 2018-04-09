@@ -24,6 +24,7 @@ namespace WpfApp2
         System.Threading.Thread mTh;
         System.Timers.Timer mTimer;
         Server2 mServer;
+        Client2 mClient;
         bool toUpdateGUI;
         int mCount;
 
@@ -83,6 +84,34 @@ namespace WpfApp2
                             if(toUpdateGUI)
                                 txtCount.Text = mCount.ToString();
                         }));
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            //for(int i = 92; i < 122; ++i)
+            {
+                //mClient = new Client2("192.168.1." + i, ClientBufHndl, ClientMsg, false);
+                mClient = new Client2("127.0.0.1", ClientBufHndl, ClientMsg, false);
+                mClient.ConnectWR();
+            }
+        }
+
+        public bool ClientBufHndl(byte[] buf)
+        {
+            Dispatcher.Invoke(new Action(
+                        () =>
+                        {
+                            txtMsgFromClient.Text += System.Text.UTF8Encoding.UTF8.GetString(buf);
+                        }));
+            mClient.Close();
+            mClient = null;
+            return false;
+        }
+
+        public byte[] ClientMsg()
+        {
+            string msg = "server";
+            return System.Text.UTF8Encoding.UTF8.GetBytes(msg);
         }
     }
 }

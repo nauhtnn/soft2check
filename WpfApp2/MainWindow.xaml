@@ -13,5 +13,6 @@
         </ScrollViewer>
         <TextBlock Text="Server đang đếm thời gian" HorizontalAlignment="Left" Height="36" Margin="80,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="213" FontSize="16"/>
         <TextBlock x:Name="txtCount" Text="0"  HorizontalAlignment="Left" Height="38" Margin="322,75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="135" FontSize="16"/>
+        <Button Content="Gọi client" Click="Button_Click" HorizontalAlignment="Left" Height="33" Margin="519,80,0,0" VerticalAlignment="Top" Width="125"/>
     </Grid>
 </Window>
