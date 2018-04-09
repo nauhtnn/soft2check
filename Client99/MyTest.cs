@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-/*using Word = Microsoft.Office.Interop.Word;
+using Word = Microsoft.Office.Interop.Word;
 using Powerpoint = Microsoft.Office.Interop.PowerPoint;
 using Excel = Microsoft.Office.Interop.Excel;
 namespace Client99
@@ -58,7 +58,7 @@ namespace Client99
 
             // goi excel
 
-            /*  if (System.IO.File.Exists(excel_file))//xoa file kiem tra cu
+            if (System.IO.File.Exists(excel_file))//xoa file kiem tra cu
                   System.IO.File.Delete(excel_file);
 
                var bankAccounts = new List<Account>
@@ -104,7 +104,7 @@ namespace Client99
               wbook.Close();
               excelApp.Workbooks.Close();
               excelApp.Quit();
-              report += "\nĐÃ KIỂM TRA EXCEL";*/
+              report += "\nĐÃ KIỂM TRA EXCEL";
             
             
             // kiem tra word.
@@ -124,4 +124,4 @@ namespace Client99
             return report;
         }
     }
-}*/
+}
