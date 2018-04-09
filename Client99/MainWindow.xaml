@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Client99"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Grid Loaded="Grid_Loaded">
         <TextBlock HorizontalAlignment="Left" Height="39" Margin="82,34,0,0" TextWrapping="Wrap" Text="This client is to send message to the server" VerticalAlignment="Top" Width="527" FontSize="24"/>
         <TextBox x:Name="tbxMsg" Text="Chưa kiểm tra."  HorizontalAlignment="Left" Height="186" Margin="82,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="323"/>
         <TextBlock HorizontalAlignment="Left" Height="26" Margin="82,91,0,0" TextWrapping="Wrap" Text="Message" VerticalAlignment="Top" Width="121"/>

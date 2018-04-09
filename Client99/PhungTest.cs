@@ -32,11 +32,11 @@ namespace Client99
                         System.IO.Directory.Delete(p);
                         report += "_" + p + "_ đã bị xóa\n";
                     }
-                    catch(UnauthorizedAccessException e)
+                    catch(UnauthorizedAccessException )
                     {
                         report += "!!!! bỏ qua thư mục _" + p + "_\n";
                     }
-                    catch (IOException e)
+                    catch (IOException )
                     {
                         report += "!!!! bỏ qua thư mục _" + p + "_\n";
 
@@ -52,7 +52,7 @@ namespace Client99
                     System.IO.File.Delete(p);
                     report += "_" + p + "_đã bị xóa\n";
                 }
-                catch (UnauthorizedAccessException e)
+                catch (UnauthorizedAccessException )
                 {
                     report += "!!!! bỏ qua file _" + p + "_\n";
                 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Net.Sockets;
 using System.Net;
 
-namespace WpfApp2
+namespace Client99
 {
     public delegate bool DgSrvrBufHndl(byte[] msg, out byte[] outMsg);
 
@@ -22,7 +22,7 @@ namespace WpfApp2
         public Server2(DgSrvrBufHndl dg)
         {
             string filePath = "ServerPort2.txt";
-            mPort = 33333;
+            mPort = 33334;
             if (System.IO.File.Exists(filePath))
                 mPort = Convert.ToInt32(System.IO.File.ReadAllText(filePath));
             bRW1 = bListning = false;
