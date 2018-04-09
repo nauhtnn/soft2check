@@ -29,7 +29,6 @@ namespace Client99
 
         private void btnSend_Click(object sender, RoutedEventArgs e)
         {
-            byte[] msg = ClientMsg();
             mClient = new Client2(ClientBufHndl, ClientMsg, false);
             mClient.ConnectWR();
         }
