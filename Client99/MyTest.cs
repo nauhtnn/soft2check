@@ -58,70 +58,125 @@ namespace Client99
 
             // goi excel
 
-               if (System.IO.File.Exists(excel_file_ext))//xoa file kiem tra cu
-                   System.IO.File.Delete(excel_file_ext);
+               //if (System.IO.File.Exists(excel_file_ext))//xoa file kiem tra cu
+               //    System.IO.File.Delete(excel_file_ext);
 
-                var bankAccounts = new List<Account>
-                {
-                    new Account
-                            {
-                            ID = 1,
-                            Balance = 8
-                            },
-                    new Account
-                            {
-                            ID = 2,
-                            Balance = 5
-                            }
-                 };
+            //    var bankAccounts = new List<Account>
+            //    {
+            //        new Account
+            //                {
+            //                ID = 1,
+            //                Balance = 8
+            //                },
+            //        new Account
+            //                {
+            //                ID = 2,
+            //                Balance = 5
+            //                }
+            //     };
 
-            Random r = new Random();
-            for (int i = 3; i < 20; ++i)
-            {
-                Account acc = new Account();
-                acc.ID = i;
-                acc.Balance = r.NextDouble();
-                bankAccounts.Add(acc);
-            }
+            //Random r = new Random();
+            //for (int i = 3; i <= 20; ++i)
+            //{
+            //    Account acc = new Account();
+            //    acc.ID = i;
+            //    acc.Balance = r.NextDouble();
+            //    bankAccounts.Add(acc);
+            //}
 
-                var excelApp = new Excel.Application();
-                    excelApp.Visible = true;
-               Microsoft.Office.Interop.Excel.Workbook wbook = excelApp.Workbooks.Add();
-                    Excel._Worksheet workSheet = (Excel.Worksheet)excelApp.ActiveSheet;
+            var excelApp = new Excel.Application();
+            excelApp.Visible = true;
+            // Microsoft.Office.Interop.Excel.Workbook wbook = excelApp.Workbooks.Add();
+            //      Excel._Worksheet workSheet = (Excel.Worksheet)excelApp.ActiveSheet;
 
-                    workSheet.Cells[1, "A"] = "MASV";
-                    workSheet.Cells[1, "B"] = "DiemThi";
-                var row = 1;
-                foreach (var acct in  bankAccounts )
-                {
-                    row++;
-                    workSheet.Cells[row, "A"] = acct.ID;
-                    workSheet.Cells[row, "B"] = acct.Balance;
-                System.Threading.Thread.Sleep(100);
-                }
-                    workSheet.Columns[1].AutoFit();
-                    workSheet.Columns[2].AutoFit();
-                    ((Excel.Range)workSheet.Columns[1]).AutoFit();
-                    ((Excel.Range)workSheet.Columns[2]).AutoFit();
+            //      workSheet.Cells[1, "A"] = "MASV";
+            //      workSheet.Cells[1, "B"] = "DiemThi";
+            //  var row = 1;
+            //  foreach (var acct in  bankAccounts )
+            //  {
+            //      row++;
+            //      workSheet.Cells[row, "A"] = acct.ID;
+            //      workSheet.Cells[row, "B"] = acct.Balance;
+            //  System.Threading.Thread.Sleep(100);
+            //  }
+            //      workSheet.Columns[1].AutoFit();
+            //      workSheet.Columns[2].AutoFit();
+            //      ((Excel.Range)workSheet.Columns[1]).AutoFit();
+            //      ((Excel.Range)workSheet.Columns[2]).AutoFit();
 
-               //excelApp.Visible = false;
-               //Directory.SetCurrentDirectory("d:/");
-               //wbook.SaveAs("kiemtra.xlsx", Excel.XlFileFormat.xlWorkbookDefault);
-               try
-            {
-                wbook.SaveAs(excel_file, Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookDefault, Type.Missing, Type.Missing,
-               false, false, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlNoChange,
-               Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
-            }
-            catch(COMException)
-            {
+            /* string path = @"D:\users\repos\soft2check\dat\sample.xlsx";
+             Excel.Workbook workbook = excelApp.Workbooks.Open(path);
+             workSheet = workbook.Worksheets.get_Item(1);
+             workSheet.Range["A9:L9"].Copy(workSheet.Range["A10:L10"]);
+             Excel.Range source = workSheet.Range["A9:L9"].Insert(Excel.XlInsertShiftDirection.xlShiftDown);
+             Excel.Range dest = workSheet.Range["F10"];
+             source.Copy(dest);*/
 
-            }
-               wbook.Close();
+
+
+            // excelApp.WindowState = XlWindowState.xlMinimized;
+
+            //excelApp.Visible = false;
+            //Directory.SetCurrentDirectory("d:/");
+            //wbook.SaveAs("kiemtra.xlsx", Excel.XlFileFormat.xlWorkbookDefault);
+            //try
+            //{
+            //    wbook.SaveAs(excel_file, Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookDefault, Type.Missing, Type.Missing,
+            //   false, false, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlNoChange,
+            //   Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+            //}
+            //catch(COMException)
+            //{
+
+            //}
+
+            Excel.Workbook ex_sample = excelApp.Workbooks.Add(@"D:\users\repos\soft2check\dat\sample.xlsx");
+            Excel.Workbook ex_m = excelApp.Workbooks.Add(excel_file_ext);
+
+            ex_sample.Activate();
+            //Excel._Worksheet ws = ex_sample.Worksheets.;
+
+            //ws.Select(true);
+            //ws.Cells.Select();
+
+            //for (int i = 2; i <= excelApp.Workbooks.Count; i++)
+            //{
+            //    int count = excelApp.Workbooks[i].Worksheets.Count;
+
+            //    excelApp.Workbooks[i].Activate();
+            //    for (int j = 1; j <= count; j++)
+            //    {
+            //        Excel._Worksheet ws = (Excel._Worksheet)excelApp.Workbooks[i].Worksheets[j];
+
+            //        ws.Select(true);
+            //        ws.Cells.Select();
+
+            //        Excel.Range sel = (Excel.Range)excelApp.Selection;
+            //        sel.Copy(Type.Missing);
+
+            //        Excel._Worksheet sheet = (Excel._Worksheet)excelApp.Workbooks[1].Worksheets.Add(
+            //            Type.Missing, Type.Missing, Type.Missing, Type.Missing
+            //            );
+
+            //        sheet.Paste(Type.Missing, Type.Missing);
+
+            //        sheet.Name = excelApp.Workbooks[i].Worksheets[j].Name;
+            //    }
+
+
+            //}
+
+            //excelApp.DisplayAlerts = false;
+            //excelApp.Workbooks[3].Close();
+            //excelApp.Workbooks[2].Close();
+            //excelApp.DisplayAlerts = true;
+
+            //wbook.Close();
                excelApp.Workbooks.Close();
                excelApp.Quit();
                report += "\nĐÃ KIỂM TRA EXCEL";
             ////////////////end test
+           
             return report;
         }
     }
