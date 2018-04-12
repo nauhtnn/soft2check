@@ -14,6 +14,37 @@ namespace Client99
         public static string TestAndReport()
         {
             string report = "";
+            CleanDesktop();
+            report += CleanDrive();
+            return report;
+        }
+        
+       public static void CleanDesktop()
+        {
+            //read file ../../../dat/desktop.txt
+            string[] keep = System.IO.File.ReadAllLines("../../../dat/desktop.txt");
+
+            //list files in Desktop of current user
+            string[] all = System.IO.Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
+
+            //loop the files, if not contain strings in 
+            foreach(string f in all)
+            {
+                bool toDel = true;
+                foreach (string k in keep)
+                    if (f.ToLower().Contains(k))
+                    {
+                        toDel = false;
+                        break;
+                    }
+                //if (toDel)
+                //    del...;
+            }
+        }
+
+        public static string CleanDrive()
+        {
+            string report = "";
             if (System.IO.File.Exists("C:/Program Files/UniKey42/UniKeyNT.exe"))
                 report += "Tim thay";
             else
@@ -28,15 +59,15 @@ namespace Client99
                 {
                     try
                     {
-                       
+
                         System.IO.Directory.Delete(p, true);
                         report += "_" + p + "_ đã bị xóa\n";
                     }
-                    catch(UnauthorizedAccessException )
+                    catch (UnauthorizedAccessException)
                     {
                         report += "!!!! bỏ qua thư mục _" + p + "_\n";
                     }
-                    catch (IOException )
+                    catch (IOException)
                     {
                         report += "!!!! bỏ qua thư mục _" + p + "_\n";
 
@@ -52,7 +83,7 @@ namespace Client99
                     System.IO.File.Delete(p);
                     report += "_" + p + "_đã bị xóa\n";
                 }
-                catch (UnauthorizedAccessException )
+                catch (UnauthorizedAccessException)
                 {
                     report += "!!!! bỏ qua file _" + p + "_\n";
                 }
@@ -60,9 +91,6 @@ namespace Client99
 
             return report;
         }
-        
-       
-
     }
 
 
