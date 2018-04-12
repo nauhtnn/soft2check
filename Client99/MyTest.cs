@@ -131,10 +131,18 @@ namespace Client99
             //}
 
             Excel.Workbook ex_sample = excelApp.Workbooks.Add(@"D:\users\repos\soft2check\dat\sample.xlsx");
+            Excel.Worksheet ws_samp = ex_sample.ActiveSheet;
             Excel.Workbook ex_m = excelApp.Workbooks.Add(excel_file_ext);
+            Excel.Worksheet ws_m = ex_m.ActiveSheet;
 
-            ex_sample.Activate();
-            //Excel._Worksheet ws = ex_sample.Worksheets.;
+            int i = 0;
+            foreach(Excel.Range c in ws_samp.Columns)
+            {
+                if (3 < ++i)
+                    break;
+                c.Copy();
+                ws_m.Columns["A"].PasteSpecial();
+            }
 
             //ws.Select(true);
             //ws.Cells.Select();
