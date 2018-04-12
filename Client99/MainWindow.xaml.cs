@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Net;
 
 namespace Client99
 {
@@ -98,6 +99,20 @@ namespace Client99
                 System.Threading.Thread.Sleep(888);
             outMsg = System.Text.UTF8Encoding.UTF8.GetBytes(tMsg);
             return false;
+        }
+
+        private void page_Loaded(object sender, RoutedEventArgs e)
+        {
+            string hostname = "";
+            System.Net.IPHostEntry ip = new IPHostEntry();
+            hostname = System.Net.Dns.GetHostName();
+            ip = System.Net.Dns.GetHostByName(hostname);
+            txttenmay.Text = "" + ip.HostName;
+
+            foreach (System.Net.IPAddress listip in ip.AddressList)
+            {
+                txtip.Text = "" + listip.ToString();
+            }
         }
     }
 }
