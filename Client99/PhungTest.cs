@@ -24,7 +24,7 @@ namespace Client99
             string[] folders = System.IO.Directory.GetDirectories("D:/");
             foreach (string p in folders)
             {
-                if ((!p.Contains("Users")))
+                if ((!p.ToLower().Contains("users")))
                 {
                     try
                     {
