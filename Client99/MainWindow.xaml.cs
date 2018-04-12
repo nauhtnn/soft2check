@@ -66,12 +66,6 @@ namespace Client99
             txtStatus.Text = MyTest.TestAndReport();
         }
 
-        private void Grid_Loaded(object sender, RoutedEventArgs e)
-        {
-            mTh = new System.Threading.Thread(SlaverStartListening);
-            mTh.Start();
-        }
-
         private void SlaverStartListening()
         {
             mServer = new Server3(SlaverRecvMsg);
@@ -94,13 +88,17 @@ namespace Client99
             string hostname = "";
             System.Net.IPHostEntry ip = new IPHostEntry();
             hostname = System.Net.Dns.GetHostName();
-            ip = System.Net.Dns.GetHostByName(hostname);
+            ip = System.Net.Dns.GetHostEntry(hostname);
             txtTitle.Text = ip.HostName;
 
-            //foreach (System.Net.IPAddress listip in ip.AddressList)
-            //{
-            //    txtip.Text = "" + listip.ToString();
-            //}
+            foreach (System.Net.IPAddress listip in ip.AddressList)
+            {
+                if(listip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                    txtTitle.Text += " - " + listip.MapToIPv4().ToString();
+            }
+
+            mTh = new System.Threading.Thread(SlaverStartListening);
+            mTh.Start();
         }
     }
 }
