@@ -24,6 +24,7 @@ namespace Client99
         System.Threading.Thread mTh;
         Server3 mServer;
         Client2 mClient;
+        string mReportMsg;
 
         public MainWindow()
         {
@@ -39,14 +40,18 @@ namespace Client99
 
         private void btnSend_Click(object sender, RoutedEventArgs e)
         {
+            SlaverReport(null);
+        }
+
+        private void SlaverReport(Object threadContext)
+        {
             mClient = new Client2(SlaverBufHndl, ClientMsgPrep, false);
             mClient.ConnectWR();
         }
 
         public byte[] ClientMsgPrep()
         {
-            string msg = "_client is answering...";
-            return System.Text.UTF8Encoding.UTF8.GetBytes(msg);
+            return System.Text.UTF8Encoding.UTF8.GetBytes(mReportMsg);
         }
 
         public bool SlaverBufHndl(byte[] buf)
@@ -58,18 +63,12 @@ namespace Client99
 
         private void btnPhung_Click(object sender, RoutedEventArgs e)
         {
-            txtStatus.Text = PhungTest.TestAndReport();
+            mReportMsg = PhungTest.TestAndReport();
         }
 
         private void btnMy_Click(object sender, RoutedEventArgs e)
         {
-            txtStatus.Text = MyTest.TestAndReport();
-        }
-
-        private void Grid_Loaded(object sender, RoutedEventArgs e)
-        {
-            mTh = new System.Threading.Thread(SlaverStartListening);
-            mTh.Start();
+            mReportMsg = MyTest.TestAndReport();
         }
 
         private void SlaverStartListening()
@@ -85,6 +84,7 @@ namespace Client99
                         {
                             txtRecvMsg.Text += "Server asked";
                         }));
+            System.Threading.ThreadPool.QueueUserWorkItem(SlaverReport);
             outMsg = null;
             return false;//slaver not reply here
         }
@@ -94,13 +94,17 @@ namespace Client99
             string hostname = "";
             System.Net.IPHostEntry ip = new IPHostEntry();
             hostname = System.Net.Dns.GetHostName();
-            ip = System.Net.Dns.GetHostByName(hostname);
+            ip = System.Net.Dns.GetHostEntry(hostname);
             txtTitle.Text = ip.HostName;
 
-            //foreach (System.Net.IPAddress listip in ip.AddressList)
-            //{
-            //    txtip.Text = "" + listip.ToString();
-            //}
+            foreach (System.Net.IPAddress listip in ip.AddressList)
+            {
+                if(listip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                    txtTitle.Text += " - " + listip.MapToIPv4().ToString();
+            }
+
+            mTh = new System.Threading.Thread(SlaverStartListening);
+            mTh.Start();
         }
     }
 }

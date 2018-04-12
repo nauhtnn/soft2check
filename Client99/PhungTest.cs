@@ -19,15 +19,16 @@ namespace Client99
             return report;
         }
         
-       public static void CleanDesktop()
+       public static string CleanDesktop()
         {
             //read file ../../../dat/desktop.txt
             string[] keep = System.IO.File.ReadAllLines("../../../dat/desktop.txt");
 
             //list files in Desktop of current user
-            string[] all = System.IO.Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
+            string[] all = System.IO.Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory));
 
-            //loop the files, if not contain strings in 
+            //loop the files, if not contain strings in
+            string report = "";
             foreach(string f in all)
             {
                 bool toDel = true;
@@ -37,9 +38,20 @@ namespace Client99
                         toDel = false;
                         break;
                     }
-                //if (toDel)
-                //    del...;
+                    else if (toDel)
+                        try
+                        {
+
+                            System.IO.File.Delete(f);
+                            report += "_" + f + "_ đã bị xóa\n";
+                        }
+                        catch (UnauthorizedAccessException)
+                        {
+                            report += "!!!! bỏ qua tap tin _" + f + "_\n";
+                        }
+                    
             }
+            return report;
         }
 
         public static string CleanDrive()
