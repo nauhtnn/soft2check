@@ -1,0 +1,6 @@
+access
+excel
+power
+word
+unikey
+sqz
