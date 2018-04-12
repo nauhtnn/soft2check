@@ -49,19 +49,23 @@ namespace WpfApp2
             mTimer.Dispose();
         }
 
-        public bool ServerReceiveMessge(byte[] msg, out byte[] outMsg)
+        public bool MasterRecvMsg(byte[] msg, out byte[] outMsg)
         {
             Dispatcher.Invoke(new Action(
                         () =>
                         {
-                        }));
+                            string s = System.Text.UTF8Encoding.UTF8.GetString(msg);
+                            string[] vs = s.Split('_');
+                            int comp_idx = int.Parse(vs[1].Substring(3, 2));
+                            vReport[comp_idx].Text = s;
+            }));
             outMsg = null;
             return false;
         }
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
-            mTh = new System.Threading.Thread(ServerStartListening);
+            mTh = new System.Threading.Thread(MasterStartListening);
             mTh.Start();
             // Create a timer with a two second interval.
             mTimer = new System.Timers.Timer(1000);
@@ -98,9 +102,9 @@ namespace WpfApp2
             }
         }
 
-        private void ServerStartListening()
+        private void MasterStartListening()
         {
-            mServer = new Server2(ServerReceiveMessge);
+            mServer = new Server2(MasterRecvMsg);
             mServer.Start();
         }
 
@@ -119,25 +123,20 @@ namespace WpfApp2
         {
             //for(int i = 92; i < 122; ++i)
             {
-                //mClient = new Client2("192.168.1." + i, ClientBufHndl, ClientMsg, false);
-                mClient = new Client2("127.0.0.1", ClientBufHndl, ClientMsg, false);
+                //mClient = new Client2("192.168.1." + i, MasterPingHndl, MasterMgsPing, false);
+                mClient = new Client2("127.0.0.1", MasterPingHndl, MasterMgsPing, false);
                 mClient.ConnectWR();
             }
         }
 
-        public bool ClientBufHndl(byte[] buf)
+        public bool MasterPingHndl(byte[] buf)
         {
-            Dispatcher.Invoke(new Action(
-                        () =>
-                        {
-                            
-                        }));
             mClient.Close();
             mClient = null;
             return false;
         }
 
-        public byte[] ClientMsg()
+        public byte[] MasterMgsPing()
         {
             string msg = "server";
             return System.Text.UTF8Encoding.UTF8.GetBytes(msg);
