@@ -9,7 +9,25 @@
     <Grid Loaded="Grid_Loaded">
         <TextBlock HorizontalAlignment="Left" Height="39" Margin="82,34,0,0" TextWrapping="Wrap" Text="Server has received the message from client:" VerticalAlignment="Top" Width="527" FontSize="24"/>
         <ScrollViewer HorizontalAlignment="Left" Height="238" Margin="82,128,0,0" VerticalAlignment="Top" Width="535">
-            <TextBlock x:Name="txtMsgFromClient" TextWrapping="Wrap" Text="Đang lắng nghe..." />
+            <StackPanel>
+                <Grid ShowGridLines="True" Background="Black">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="24"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Máy tính" HorizontalAlignment="Center" Foreground="White"/>
+                    <TextBlock Text="Kết quả" Grid.Column="1" HorizontalAlignment="Center" Foreground="White"/>
+                </Grid>
+                <Grid x:Name="grdReport" ShowGridLines="True">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+                </Grid>
+            </StackPanel>
         </ScrollViewer>
         <TextBlock Text="Server đang đếm thời gian" HorizontalAlignment="Left" Height="36" Margin="80,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="213" FontSize="16"/>
         <TextBlock x:Name="txtCount" Text="0"  HorizontalAlignment="Left" Height="38" Margin="322,75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="135" FontSize="16"/>

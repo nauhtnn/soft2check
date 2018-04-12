@@ -27,6 +27,10 @@ namespace WpfApp2
         Client2 mClient;
         bool toUpdateGUI;
         int mCount;
+        TextBlock[] vReport;
+        int iRoom;
+        int nComp;
+        int ipv4Start;
 
         public MainWindow()
         {
@@ -50,8 +54,6 @@ namespace WpfApp2
             Dispatcher.Invoke(new Action(
                         () =>
                         {
-                            if(toUpdateGUI)
-                                txtMsgFromClient.Text += System.Text.UTF8Encoding.UTF8.GetString(msg) + "\n";
                         }));
             outMsg = null;
             return false;
@@ -67,6 +69,33 @@ namespace WpfApp2
             mTimer.Elapsed += OnTimedEvent;
             mTimer.AutoReset = true;
             mTimer.Enabled = true;
+
+            string[] s = System.IO.File.ReadAllLines("../../../dat/comp.txt");
+            iRoom = int.Parse(s[0]);
+            nComp = int.Parse(s[1]);
+            ipv4Start = int.Parse(s[2]);
+            vReport = new TextBlock[nComp];
+            ReportDecor();
+        }
+
+        private void ReportDecor()
+        {
+            for(int i = 0; i < nComp;)
+            {
+                RowDefinition rd = new RowDefinition();
+                rd.Height = new GridLength(24);
+                grdReport.RowDefinitions.Add(rd);
+                TextBlock t = new TextBlock();
+                t.HorizontalAlignment = HorizontalAlignment.Center;
+                Grid.SetRow(t, i);
+                grdReport.Children.Add(t);
+                vReport[i] = new TextBlock();
+                Grid.SetRow(vReport[i], i);
+                Grid.SetColumn(vReport[i], 1);
+                grdReport.Children.Add(vReport[i]);
+                ++i;
+                t.Text = "MAY" + i.ToString("d2") + "PM" + iRoom;
+            }
         }
 
         private void ServerStartListening()
@@ -101,7 +130,7 @@ namespace WpfApp2
             Dispatcher.Invoke(new Action(
                         () =>
                         {
-                            txtMsgFromClient.Text += System.Text.UTF8Encoding.UTF8.GetString(buf);
+                            
                         }));
             mClient.Close();
             mClient = null;
