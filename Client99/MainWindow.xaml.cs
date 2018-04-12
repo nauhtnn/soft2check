@@ -22,7 +22,7 @@ namespace Client99
     public partial class MainWindow : Window
     {
         System.Threading.Thread mTh;
-        Server2 mServer;
+        Server3 mServer;
         Client2 mClient;
 
         public MainWindow()
@@ -39,23 +39,17 @@ namespace Client99
 
         private void btnSend_Click(object sender, RoutedEventArgs e)
         {
-            mClient = new Client2(ClientBufHndl, ClientMsg, false);
+            mClient = new Client2(SlaverBufHndl, ClientMsgPrep, false);
             mClient.ConnectWR();
         }
 
-        public byte[] ClientMsg()
+        public byte[] ClientMsgPrep()
         {
             string msg = "_client is answering...";
-            Dispatcher.Invoke(new Action(
-                        () =>
-                        {
-                            msg = "_" + tbxMsg.Text + "_";
-                            tbxMsg.Text = "";
-                        }));
             return System.Text.UTF8Encoding.UTF8.GetBytes(msg);
         }
 
-        public bool ClientBufHndl(byte[] buf)
+        public bool SlaverBufHndl(byte[] buf)
         {
             mClient.Close();
             mClient = null;
@@ -64,55 +58,49 @@ namespace Client99
 
         private void btnPhung_Click(object sender, RoutedEventArgs e)
         {
-            tbxMsg.Text = PhungTest.TestAndReport();
+            txtStatus.Text = PhungTest.TestAndReport();
         }
 
         private void btnMy_Click(object sender, RoutedEventArgs e)
         {
-           tbxMsg.Text = MyTest.TestAndReport();
+            txtStatus.Text = MyTest.TestAndReport();
         }
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
-            mTh = new System.Threading.Thread(ServerStartListening);
+            mTh = new System.Threading.Thread(SlaverStartListening);
             mTh.Start();
         }
 
-        private void ServerStartListening()
+        private void SlaverStartListening()
         {
-            mServer = new Server2(ServerReceiveMessge);
+            mServer = new Server3(SlaverRecvMsg);
             mServer.Start();
         }
 
-        public bool ServerReceiveMessge(byte[] msg, out byte[] outMsg)
+        public bool SlaverRecvMsg(byte[] msg, out byte[] outMsg)
         {
-            bool bWaiting = true;
-            string tMsg = "abc";
             Dispatcher.Invoke(new Action(
                         () =>
                         {
-                            tbxMsg.Text += "Server asked";
-                            tMsg = "_" + tbxMsg.Text + "_";
-                            bWaiting = false;
+                            txtRecvMsg.Text += "Server asked";
                         }));
-            while (bWaiting)
-                System.Threading.Thread.Sleep(888);
-            outMsg = System.Text.UTF8Encoding.UTF8.GetBytes(tMsg);
-            return false;
+            outMsg = null;
+            return false;//slaver not reply here
         }
 
-        private void page_Loaded(object sender, RoutedEventArgs e)
+        private void Main_Loaded(object sender, RoutedEventArgs e)
         {
             string hostname = "";
             System.Net.IPHostEntry ip = new IPHostEntry();
             hostname = System.Net.Dns.GetHostName();
             ip = System.Net.Dns.GetHostByName(hostname);
-            txttenmay.Text = "" + ip.HostName;
+            txtTitle.Text = ip.HostName;
 
-            foreach (System.Net.IPAddress listip in ip.AddressList)
-            {
-                txtip.Text = "" + listip.ToString();
-            }
+            //foreach (System.Net.IPAddress listip in ip.AddressList)
+            //{
+            //    txtip.Text = "" + listip.ToString();
+            //}
         }
     }
 }

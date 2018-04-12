@@ -10,7 +10,7 @@ namespace Client99
 {
     public delegate bool DgSrvrBufHndl(byte[] msg, out byte[] outMsg);
 
-    public class Server2
+    public class Server3
     {
         TcpListener mTcpListr = null;
         //bool bRW;//todo all clnt
@@ -19,10 +19,10 @@ namespace Client99
         int mPort;
         DgSrvrBufHndl dgHndl;
 
-        public Server2(DgSrvrBufHndl dg)
+        public Server3(DgSrvrBufHndl dg)
         {
-            string filePath = "ServerPort2.txt";
-            mPort = 33334;
+            string filePath = "ServerPort3.txt";
+            mPort = 33333;
             if (System.IO.File.Exists(filePath))
                 mPort = Convert.ToInt32(System.IO.File.ReadAllText(filePath));
             bRW1 = bListning = false;
@@ -132,21 +132,7 @@ namespace Client99
                         if (bRW1 && recvMsg != null && 3 < recvMsg.Length)
                         {
                             byte[] msg;
-                            bRW1 = dgHndl(recvMsg, out msg);
-                            if (msg != null && 0 < msg.Length)
-                            {
-                                try
-                                {
-                                    stream.Write(BitConverter.GetBytes(msg.Length), 0, 4);
-                                    stream.Write(msg, 0, msg.Length);
-                                }
-                                catch (System.IO.IOException )
-                                {
-                                    bRW1 = false;
-                                }
-                            }
-                            else
-                                bRW1 = false;
+                            bRW1 = dgHndl(recvMsg, out msg);//slaver not reply here
                         }
                         else
                             bRW1 = false;
