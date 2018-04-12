@@ -9,10 +9,7 @@ using System.Runtime.InteropServices;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using Word = Microsoft.Office.Interop.Word;
-using Powerpoint = Microsoft.Office.Interop.PowerPoint;
 using Excel = Microsoft.Office.Interop.Excel;
-using Microsoft.Office.Interop.PowerPoint;
 
 namespace Client99
 {
@@ -21,6 +18,7 @@ namespace Client99
         public MyTest() { }
 
         static string excel_file = "d:\\TTKMy_excel_test";
+        static string excel_file_ext = excel_file + ".xlsx";
 
         public class Account
         {
@@ -60,23 +58,31 @@ namespace Client99
 
             // goi excel
 
-            /*   if (System.IO.File.Exists(excel_file))//xoa file kiem tra cu
-                   System.IO.File.Delete(excel_file);
+               if (System.IO.File.Exists(excel_file_ext))//xoa file kiem tra cu
+                   System.IO.File.Delete(excel_file_ext);
 
                 var bankAccounts = new List<Account>
                 {
                     new Account
                             {
-                            ID = 01,
+                            ID = 1,
                             Balance = 8
                             },
                     new Account
                             {
-                            ID = 02,
+                            ID = 2,
                             Balance = 5
-
                             }
                  };
+
+            Random r = new Random();
+            for (int i = 3; i < 20; ++i)
+            {
+                Account acc = new Account();
+                acc.ID = i;
+                acc.Balance = r.NextDouble();
+                bankAccounts.Add(acc);
+            }
 
                 var excelApp = new Excel.Application();
                     excelApp.Visible = true;
@@ -91,6 +97,7 @@ namespace Client99
                     row++;
                     workSheet.Cells[row, "A"] = acct.ID;
                     workSheet.Cells[row, "B"] = acct.Balance;
+                System.Threading.Thread.Sleep(100);
                 }
                     workSheet.Columns[1].AutoFit();
                     workSheet.Columns[2].AutoFit();
@@ -100,45 +107,20 @@ namespace Client99
                //excelApp.Visible = false;
                //Directory.SetCurrentDirectory("d:/");
                //wbook.SaveAs("kiemtra.xlsx", Excel.XlFileFormat.xlWorkbookDefault);
-               wbook.SaveAs(excel_file, Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookDefault, Type.Missing, Type.Missing,
+               try
+            {
+                wbook.SaveAs(excel_file, Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookDefault, Type.Missing, Type.Missing,
                false, false, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlNoChange,
                Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+            }
+            catch(COMException)
+            {
+
+            }
                wbook.Close();
                excelApp.Workbooks.Close();
                excelApp.Quit();
-               report += "\nĐÃ KIỂM TRA EXCEL";*/
-            // kiem tra word.
-
-            //object omissing = system.reflection.missing.value;
-            //object oendofdoc = "\\endofdoc";
-            //start word and create a new document.
-            //word.application oword;
-            //word.document odoc;
-            //oword = new word.application();
-            //oword.visible = true;
-            //odoc = oword.documents.add(ref omissing, ref omissing, ref omissing, ref omissing);*/
-
-            Word.Application wordApp = new Word.Application();
-            wordApp.Visible = true;
-             //wordapp.documents.add();
-             //wordapp.selection.pastespecial(link: true, displayasicon: true);
-
-            //kiem tra ppt
-            //Application pptApplication = new Application();
-
-            //Microsoft.Office.Interop.PowerPoint.Slides slides;
-            //Microsoft.Office.Interop.PowerPoint._Slide slide;
-            //Microsoft.Office.Interop.PowerPoint.TextRange objText;
-
-            //// Create the Presentation File
-            //Presentation pptPresentation = pptApplication.Presentations.Add(MsoTriState.msoTrue);
-
-            //Microsoft.Office.Interop.PowerPoint.CustomLayout customLayout = pptPresentation.SlideMaster.CustomLayouts[Microsoft.Office.Interop.PowerPoint.PpSlideLayout.ppLayoutText];
-
-            //// Create new Slide
-            //slides = pptPresentation.Slides;
-            //slide = slides.AddSlide(1, customLayout);
-
+               report += "\nĐÃ KIỂM TRA EXCEL";
             ////////////////end test
             return report;
         }
