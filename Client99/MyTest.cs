@@ -10,7 +10,11 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using Excel = Microsoft.Office.Interop.Excel;
-
+using Word = Microsoft.Office.Interop.Word;
+using PowerPoin = Microsoft.Office.Interop.PowerPoint;
+/*using System.Windows;
+using Spire.Doc;
+using Spire.Doc.Documents;*/
 namespace Client99
 {
     class MyTest
@@ -58,8 +62,8 @@ namespace Client99
 
             // goi excel
 
-               //if (System.IO.File.Exists(excel_file_ext))//xoa file kiem tra cu
-               //    System.IO.File.Delete(excel_file_ext);
+            //if (System.IO.File.Exists(excel_file_ext))//xoa file kiem tra cu
+            //    System.IO.File.Delete(excel_file_ext);
 
             //    var bankAccounts = new List<Account>
             //    {
@@ -180,11 +184,31 @@ namespace Client99
             //excelApp.DisplayAlerts = true;
 
             //wbook.Close();
-               excelApp.Workbooks.Close();
-               excelApp.Quit();
-               report += "\nĐÃ KIỂM TRA EXCEL";
+              excelApp.Workbooks.Close();
+              excelApp.Quit();
+              report += "\nĐÃ KIỂM TRA EXCEL";
             ////////////////end test
-           
+
+            //kt wprd
+            var wordApp = new Word.Application();
+            wordApp.Visible = true;
+            wordApp.Documents.Add();
+            wordApp.Selection.PasteSpecial(Link: true, DisplayAsIcon: true);
+
+
+            // kt powerpoint
+            
+            /* Document doc = new Document();
+             //Add Section
+             Section section = doc.AddSection();
+             //Add Paragraph
+             Paragraph Para = section.AddParagraph();
+             Para.AppendText("Hello! "
+                 + "I was created by Spire.Doc for WPF, it's a professional .NET Word component "
+                 + "which enables developers to perform a large range of tasks on Word document (such as create, open, write, edit, save and convert "
+                 + "Word document) without installing Microsoft Office and any other third-party tools on system.");*/
+
+
             return report;
         }
     }
