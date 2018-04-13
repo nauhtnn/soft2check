@@ -25,6 +25,7 @@ namespace Client99
         static string excel_file = "d:\\TTKMy_excel_test";
         static string excel_file_ext = excel_file + ".xlsx";
 
+       
         public class Account
         {
             public int ID { get; set; }
@@ -60,153 +61,18 @@ namespace Client99
             else
                 report += "\nKhông tồn tại \"WINWORD.exe\".";
 
+            report += TestWord();
+            report += TestExcel();
+            report += TestPowerPoint();
+            
+            ////////////////end test
+            return report;
+        }
 
-            // goi excel
-
-            //if (System.IO.File.Exists(excel_file_ext))//xoa file kiem tra cu
-            //    System.IO.File.Delete(excel_file_ext);
-
-            //    var bankAccounts = new List<Account>
-            //    {
-            //        new Account
-            //                {
-            //                ID = 1,
-            //                Balance = 8
-            //                },
-            //        new Account
-            //                {
-            //                ID = 2,
-            //                Balance = 5
-            //                }
-            //     };
-
-            //Random r = new Random();
-            //for (int i = 3; i <= 20; ++i)
-            //{
-            //    Account acc = new Account();
-            //    acc.ID = i;
-            //    acc.Balance = r.NextDouble();
-            //    bankAccounts.Add(acc);
-            //}
-
-            /*  var excelApp = new Excel.Application();
-              excelApp.Visible = true;*/
-            // Microsoft.Office.Interop.Excel.Workbook wbook = excelApp.Workbooks.Add();
-            //      Excel._Worksheet workSheet = (Excel.Worksheet)excelApp.ActiveSheet;
-
-            //      workSheet.Cells[1, "A"] = "MASV";
-            //      workSheet.Cells[1, "B"] = "DiemThi";
-            //  var row = 1;
-            //  foreach (var acct in  bankAccounts )
-            //  {
-            //      row++;
-            //      workSheet.Cells[row, "A"] = acct.ID;
-            //      workSheet.Cells[row, "B"] = acct.Balance;
-            //  System.Threading.Thread.Sleep(100);
-            //  }
-            //      workSheet.Columns[1].AutoFit();
-            //      workSheet.Columns[2].AutoFit();
-            //      ((Excel.Range)workSheet.Columns[1]).AutoFit();
-            //      ((Excel.Range)workSheet.Columns[2]).AutoFit();
-
-            /* string path = @"D:\users\repos\soft2check\dat\sample.xlsx";
-             Excel.Workbook workbook = excelApp.Workbooks.Open(path);
-             workSheet = workbook.Worksheets.get_Item(1);
-             workSheet.Range["A9:L9"].Copy(workSheet.Range["A10:L10"]);
-             Excel.Range source = workSheet.Range["A9:L9"].Insert(Excel.XlInsertShiftDirection.xlShiftDown);
-             Excel.Range dest = workSheet.Range["F10"];
-             source.Copy(dest);*/
-
-
-
-            // excelApp.WindowState = XlWindowState.xlMinimized;
-
-            //excelApp.Visible = false;
-            //Directory.SetCurrentDirectory("d:/");
-            //wbook.SaveAs("kiemtra.xlsx", Excel.XlFileFormat.xlWorkbookDefault);
-            //try
-            //{
-            //    wbook.SaveAs(excel_file, Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookDefault, Type.Missing, Type.Missing,
-            //   false, false, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlNoChange,
-            //   Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
-            //}
-            //catch(COMException)
-            //{
-
-            //}
-
-            /* Excel.Workbook ex_sample = excelApp.Workbooks.Add(@"D:\users\repos\soft2check\dat\sample.xlsx");
-             Excel.Worksheet ws_samp = ex_sample.ActiveSheet;
-             Excel.Workbook ex_m = excelApp.Workbooks.Add(excel_file_ext);
-             Excel.Worksheet ws_m = ex_m.ActiveSheet;
-
-             int i = 0;
-             foreach(Excel.Range c in ws_samp.Columns)
-             {
-                 if (3 < ++i)
-                     break;
-                 c.Copy();
-                 ws_m.Columns["A"].PasteSpecial();
-             }
-             */
-            //ws.Select(true);
-            //ws.Cells.Select();
-
-            //for (int i = 2; i <= excelApp.Workbooks.Count; i++)
-            //{
-            //    int count = excelApp.Workbooks[i].Worksheets.Count;
-
-            //    excelApp.Workbooks[i].Activate();
-            //    for (int j = 1; j <= count; j++)
-            //    {
-            //        Excel._Worksheet ws = (Excel._Worksheet)excelApp.Workbooks[i].Worksheets[j];
-
-            //        ws.Select(true);
-            //        ws.Cells.Select();
-
-            //        Excel.Range sel = (Excel.Range)excelApp.Selection;
-            //        sel.Copy(Type.Missing);
-
-            //        Excel._Worksheet sheet = (Excel._Worksheet)excelApp.Workbooks[1].Worksheets.Add(
-            //            Type.Missing, Type.Missing, Type.Missing, Type.Missing
-            //            );
-
-            //        sheet.Paste(Type.Missing, Type.Missing);
-
-            //        sheet.Name = excelApp.Workbooks[i].Worksheets[j].Name;
-            //    }
-
-
-            //}
-
-            //excelApp.DisplayAlerts = false;
-            //excelApp.Workbooks[3].Close();
-            //excelApp.Workbooks[2].Close();
-            //excelApp.DisplayAlerts = true;
-
-            //wbook.Close();
-            /*  excelApp.Workbooks.Close();
-              excelApp.Quit();
-              report += "\nĐÃ KIỂM TRA EXCEL";*/
-
-
-            //kt wprd
-            /*var wordApp = new Word.Application();
-            wordApp.Visible = true;
-            wordApp.Documents.Add();*/
-            // wordApp.Selection.PasteSpecial(Link: true, DisplayAsIcon: true);
-
-            /* Document doc = new Document();
-             //Add Section
-             Section section = doc.AddSection();
-             //Add Paragraph
-             Paragraph Para = section.AddParagraph();
-             Para.AppendText("Hello! "
-                 + "I was created by Spire.Doc for WPF, it's a professional .NET Word component "
-                 + "which enables developers to perform a large range of tasks on Word document (such as create, open, write, edit, save and convert "
-                 + "Word document) without installing Microsoft Office and any other third-party tools on system.");*/
-
-
+        public static string TestWord()
+        {
+            string report = "Chưa kiểm tra Word.";
+            //kt word
             object oMissing = System.Reflection.Missing.Value;
             object oEndOfDoc = "\\endofdoc"; /* \endofdoc is a predefined bookmark */
             Word._Application oWord;
@@ -227,19 +93,19 @@ namespace Client99
             Word.Paragraph oPara2;
             object oRng = oDoc.Bookmarks.get_Item(ref oEndOfDoc).Range;
             oPara2 = oDoc.Content.Paragraphs.Add(ref oRng);
-            oPara2.Range.Text = "troi oi xong roi";
+            oPara2.Range.Text = "xin chao";
             oPara2.Format.SpaceAfter = 6;
             oPara2.Range.InsertParagraphAfter();
             //Insert another paragraph.
             Word.Paragraph oPara3;
             oRng = oDoc.Bookmarks.get_Item(ref oEndOfDoc).Range;
             oPara3 = oDoc.Content.Paragraphs.Add(ref oRng);
-            oPara3.Range.Text = "This is a sentence of normal text. Now here is a table:";
+            oPara3.Range.Text = "Bây giờ đây là một bảng:";
             oPara3.Range.Font.Bold = 0;
             oPara3.Format.SpaceAfter = 24;
             oPara3.Range.InsertParagraphAfter();
 
-           
+
 
             //Insert a 3 x 5 table, fill it with data, and make the first row
             //bold and italic.
@@ -263,7 +129,7 @@ namespace Client99
             oRng = oDoc.Bookmarks.get_Item(ref oEndOfDoc).Range;
             oPara4 = oDoc.Content.Paragraphs.Add(ref oRng);
             oPara4.Range.InsertParagraphBefore();
-            oPara4.Range.Text = "And here's another table:";
+            oPara4.Range.Text = "bang khac:";
             oPara4.Format.SpaceAfter = 24;
             oPara4.Range.InsertParagraphAfter();
 
@@ -300,7 +166,7 @@ namespace Client99
             wrdRng.Collapse(ref oCollapseEnd);
             wrdRng.InsertBreak(ref oPageBreak);
             wrdRng.Collapse(ref oCollapseEnd);
-            wrdRng.InsertAfter("We're now on page 2. Here's my chart:");
+            wrdRng.InsertAfter("bieu do:");
             wrdRng.InsertParagraphAfter();
 
             //Insert a chart.
@@ -342,8 +208,149 @@ namespace Client99
             wrdRng = oDoc.Bookmarks.get_Item(ref oEndOfDoc).Range;
             wrdRng.InsertParagraphAfter();
             wrdRng.InsertAfter("THE END.");
-            ////////////////end test
+            oDoc.SaveAs("MyFile.doc", ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing);
+            oWord.Quit();
+            report += "\nĐÃ KIỂM TRA Word"; 
             return report;
+        }
+
+        public static string TestExcel()
+        {
+            //string report = "Chưa kiểm tra Word.";
+            //// goi excel 
+            //if (System.IO.File.Exists(excel_file_ext))//xoa file kiem tra cu
+            //    System.IO.File.Delete(excel_file_ext);
+
+            //var bankAccounts = new List<Account>
+            //    {
+            //        new Account
+            //                {
+            //                ID = 1,
+            //                Balance = 8
+            //               },
+            //        new Account
+            //                {
+            //                ID = 2,
+            //                Balance = 5
+            //                }
+            //     };
+
+            //Random r = new Random();
+            //for (int i = 3; i <= 20; ++i)
+            //{
+            //    Account acc = new Account();
+            //    acc.ID = i;
+            //    acc.Balance = r.NextDouble();
+            //    bankAccounts.Add(acc);
+            //}
+
+            //  var excelApp = new Excel.Application();
+            //  excelApp.Visible = true;
+            //Microsoft.Office.Interop.Excel.Workbook wbook = excelApp.Workbooks.Add();
+            //Excel._Worksheet workSheet = (Excel.Worksheet)excelApp.ActiveSheet;
+
+            //workSheet.Cells[1, "A"] = "MASV";
+            //workSheet.Cells[1, "B"] = "DiemThi";
+            //var row = 1;
+            //foreach (var acct in bankAccounts)
+            //{
+            //    row++;
+            //    workSheet.Cells[row, "A"] = acct.ID;
+            //    workSheet.Cells[row, "B"] = acct.Balance;
+            //    System.Threading.Thread.Sleep(100);
+            //}
+            //workSheet.Columns[1].AutoFit();
+            //workSheet.Columns[2].AutoFit();
+            //((Excel.Range)workSheet.Columns[1]).AutoFit();
+            //((Excel.Range)workSheet.Columns[2]).AutoFit();
+
+            ///* string path = @"D:\users\repos\soft2check\dat\sample.xlsx";
+            // Excel.Workbook workbook = excelApp.Workbooks.Open(path);
+            // workSheet = workbook.Worksheets.get_Item(1);
+            // workSheet.Range["A9:L9"].Copy(workSheet.Range["A10:L10"]);
+            // Excel.Range source = workSheet.Range["A9:L9"].Insert(Excel.XlInsertShiftDirection.xlShiftDown);
+            // Excel.Range dest = workSheet.Range["F10"];
+            // source.Copy(dest);*/
+
+
+
+            //excelApp.WindowState = XlWindowState.xlMinimized;
+
+            //excelApp.Visible = false;
+            //Directory.SetCurrentDirectory("d:/");
+            //wbook.SaveAs("kiemtra.xlsx", Excel.XlFileFormat.xlWorkbookDefault);
+            //try
+            //{
+            //    wbook.SaveAs(excel_file, Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookDefault, Type.Missing, Type.Missing,
+            //   false, false, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlNoChange,
+            //   Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+            //}
+            //catch (COMException)
+            //{
+
+            //}
+
+            ///* Excel.Workbook ex_sample = excelApp.Workbooks.Add(@"D:\users\repos\soft2check\dat\sample.xlsx");
+            // Excel.Worksheet ws_samp = ex_sample.ActiveSheet;
+            // Excel.Workbook ex_m = excelApp.Workbooks.Add(excel_file_ext);
+            // Excel.Worksheet ws_m = ex_m.ActiveSheet;
+
+            // int i = 0;
+            // foreach(Excel.Range c in ws_samp.Columns)
+            // {
+            //     if (3 < ++i)
+            //         break;
+            //     c.Copy();
+            //     ws_m.Columns["A"].PasteSpecial();
+            // }
+            // */
+            //ws.Select(true);
+            //ws.Cells.Select();
+
+            //for (int i = 2; i <= excelApp.Workbooks.Count; i++)
+            //{
+            //    int count = excelApp.Workbooks[i].Worksheets.Count;
+
+            //    excelApp.Workbooks[i].Activate();
+            //    for (int j = 1; j <= count; j++)
+            //    {
+            //        Excel._Worksheet ws = (Excel._Worksheet)excelApp.Workbooks[i].Worksheets[j];
+
+            //        ws.Select(true);
+            //        ws.Cells.Select();
+
+            //        Excel.Range sel = (Excel.Range)excelApp.Selection;
+            //        sel.Copy(Type.Missing);
+
+            //        Excel._Worksheet sheet = (Excel._Worksheet)excelApp.Workbooks[1].Worksheets.Add(
+            //            Type.Missing, Type.Missing, Type.Missing, Type.Missing
+            //            );
+
+            //        sheet.Paste(Type.Missing, Type.Missing);
+
+            //        sheet.Name = excelApp.Workbooks[i].Worksheets[j].Name;
+            //    }
+
+
+            //}
+
+            //excelApp.DisplayAlerts = false;
+            //excelApp.Workbooks[3].Close();
+            //excelApp.Workbooks[2].Close();
+            //excelApp.DisplayAlerts = true;
+
+            //wbook.Close();
+            ///*  excelApp.Workbooks.Close();
+            //  excelApp.Quit();
+            //  report += "\nĐÃ KIỂM TRA EXCEL";*/
+            //return report;
+            return "";
+
+        }
+
+        public static string TestPowerPoint()
+        {
+            return "";
         }
     }
 }
