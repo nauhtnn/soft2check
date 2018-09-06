@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Runtime.InteropServices;
 
 namespace WpfApp2
 {
@@ -31,6 +32,9 @@ namespace WpfApp2
         int iRoom;
         int nComp;
         int ipv4Start;
+		
+		[DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern bool DeleteVolumeMountPoint(string mountPoint);
 
         public MainWindow()
         {
@@ -38,6 +42,18 @@ namespace WpfApp2
             mCount = 0;
             Closing += MainWindow_Closing;
             toUpdateGUI = true;
+        }
+		
+		private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            DeleteVolumeMountPoint(tbxDrive.Text);
+
+            int error = Marshal.GetLastWin32Error();
+
+            string errorMessage = new Win32Exception(error).Message;
+            Console.WriteLine(errorMessage);
+
+            Console.WriteLine("The last Win32 Error was: " + error);
         }
 
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
